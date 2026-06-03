@@ -1,0 +1,95 @@
+.products-page {
+  background: var(--bg);
+  min-height: 100vh;
+  color: var(--text);
+  transition: background 0.25s;
+}
+
+.products-layout {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.sidebar {
+  background: var(--bg-card);
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  position: sticky;
+  top: 80px;
+  transition: background 0.25s;
+}
+
+.sidebar h3 {
+  color: var(--text);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 1rem;
+}
+
+.cat-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.3rem; }
+
+.cat-list button {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  color: var(--text-2);
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.cat-list button:hover { background: var(--bg-hover); color: var(--text); }
+.cat-list button.active { background: var(--accent-dark); color: white; font-weight: 600; }
+
+.products-toolbar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.page-title { font-size: 1.5rem; font-weight: 800; color: var(--text); margin-bottom: 0.2rem; }
+.result-count { color: var(--text-3); font-size: 0.85rem; }
+
+.sort-select {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0.5rem 0.8rem;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  cursor: pointer;
+  outline: none;
+  transition: background 0.25s;
+}
+
+.sort-select:focus { border-color: var(--accent); }
+
+.products-grid-page { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+
+.empty-state { text-align: center; padding: 4rem 2rem; color: var(--text-3); }
+.empty-state span { font-size: 3rem; display: block; margin-bottom: 1rem; }
+.empty-state h3 { color: var(--text-2); font-size: 1.2rem; margin-bottom: 0.5rem; }
+
+@media (max-width: 900px) {
+  .products-layout { grid-template-columns: 1fr; }
+  .sidebar { position: static; }
+  .cat-list { flex-direction: row; flex-wrap: wrap; }
+  .cat-list li { flex: 0 0 auto; }
+  .products-grid-page { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 480px) { .products-grid-page { grid-template-columns: 1fr; } }

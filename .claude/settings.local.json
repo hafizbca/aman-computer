@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(GIT_ASKPASS=\"\" GIT_TERMINAL_PROMPT=0 git push *)"
+    ]
+  }
+}
