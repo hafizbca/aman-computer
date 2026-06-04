@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useProducts } from "../context/ProductContext";
+import { supabase } from "../lib/supabase";
 import { categories } from "../data/products";
 import "./AdminDashboard.css";
 
@@ -24,6 +25,8 @@ export default function AdminDashboard() {
   const [filterCat, setFilterCat] = useState("all");
   const [deleteTarget, setDeleteTarget] = useState(null);
   const [saving, setSaving] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState(null);
   const [toast, setToast] = useState(null);
 
   if (!isAdmin) {
@@ -61,6 +64,26 @@ export default function AdminDashboard() {
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
   }
 
+  async function handleImageUpload(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    setUploading(true);
+    setUploadError(null);
+    const ext = file.name.split(".").pop();
+    const fileName = `product-${performance.now().toString(36).replace(".", "")}.${ext}`;
+    const { error } = await supabase.storage
+      .from("product-images")
+      .upload(fileName, file, { upsert: true });
+    if (error) {
+      setUploadError("Upload failed: " + error.message);
+      setUploading(false);
+      return;
+    }
+    const { data } = supabase.storage.from("product-images").getPublicUrl(fileName);
+    setForm((f) => ({ ...f, image: data.publicUrl }));
+    setUploading(false);
+  }
+
   function handleSpecChange(idx, field, val) {
     setSpecs((prev) => prev.map((s, i) => (i === idx ? { ...s, [field]: val } : s)));
   }
@@ -73,6 +96,10 @@ export default function AdminDashboard() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    if (!form.image) {
+      showToast("Please upload a product image.", "error");
+      return;
+    }
     setSaving(true);
     const payload = { ...form, specs: buildSpecs() };
     try {
@@ -333,26 +360,28 @@ export default function AdminDashboard() {
                 <section className="form-section">
                   <h3>Product Image</h3>
                   <div className="pf-field">
-                    <label>Paste Image URL *</label>
-                    <input
-                      name="image"
-                      required
-                      value={form.image}
-                      onChange={handleFormChange}
-                      placeholder="https://images.unsplash.com/photo-...?w=600&q=80"
-                    />
-                    <p className="field-hint">
-                      💡 Get free images from{" "}
-                      <a href="https://unsplash.com" target="_blank" rel="noreferrer">unsplash.com</a>
-                      {" "}— open any image → right-click → <strong>Copy image address</strong>, then paste here.
-                    </p>
+                    <label>Upload Image *</label>
+                    <div className="img-upload-area">
+                      <input
+                        id="img-file-input"
+                        type="file"
+                        accept="image/*"
+                        style={{ display: "none" }}
+                        onChange={handleImageUpload}
+                        disabled={uploading}
+                      />
+                      <label htmlFor="img-file-input" className={`img-upload-btn${uploading ? " uploading" : ""}`}>
+                        {uploading ? "⏳ Uploading..." : form.image ? "🔄 Change Image" : "📁 Choose Image"}
+                      </label>
+                      {uploadError && <p className="upload-error">⚠️ {uploadError}</p>}
+                    </div>
                   </div>
-                  {form.image && (
+                  {form.image && !uploading && (
                     <div className="img-preview">
                       <img src={form.image} alt="preview" onError={(e) => (e.target.style.display = "none")} />
                       <div>
                         <p style={{color:"var(--text-2)",fontWeight:600,fontSize:"0.85rem"}}>Image Preview</p>
-                        <p style={{color:"var(--text-3)",fontSize:"0.78rem",marginTop:"4px"}}>If no image shows, the URL may be incorrect.</p>
+                        <p style={{color:"var(--text-3)",fontSize:"0.78rem",marginTop:"4px"}}>Click "Change Image" to replace.</p>
                       </div>
                     </div>
                   )}

@@ -26,8 +26,9 @@ export default function Footer() {
         <div className="footer-col">
           <h4>Contact</h4>
           <p>&#128205; Prantij, Gujarat, India 383205</p>
-          <p>&#128222; +91 00000-00000</p>
-          <p>&#128231; info@amancomputer.in</p>
+          <p>&#128222; +91 99984-24133</p>
+          <p>&#128222; +91 97260-60198</p>
+          <p>&#128231; -</p>
         </div>
       </div>
       <div className="footer-bottom">

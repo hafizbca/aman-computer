@@ -401,19 +401,37 @@
 
 .pf-field textarea { resize: vertical; }
 
-/* Image URL field */
+/* Image upload */
+.img-upload-area { display: flex; flex-direction: column; gap: 0.5rem; }
+
+.img-upload-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1.2rem;
+  background: var(--accent-bg);
+  border: 1px dashed var(--accent-fg);
+  border-radius: 8px;
+  color: var(--accent-fg);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: fit-content;
+}
+
+.img-upload-btn:hover { background: rgba(59,130,246,0.2); }
+.img-upload-btn.uploading { opacity: 0.6; cursor: not-allowed; }
+
+.upload-error {
+  font-size: 0.82rem;
+  color: #f87171;
+  margin-top: 0.3rem;
+}
+
 .img-preview { margin-top: 0.8rem; display: flex; align-items: center; gap: 1rem; }
 .img-preview img { width: 120px; height: 90px; object-fit: cover; border-radius: 8px; border: 1px solid var(--border); }
 .img-preview p { color: var(--text-3); font-size: 0.8rem; }
-
-.field-hint {
-  font-size: 0.8rem;
-  color: var(--text-3);
-  margin-top: 0.4rem;
-}
-
-.field-hint a { color: var(--accent-fg); text-decoration: none; }
-.field-hint a:hover { text-decoration: underline; }
 
 /* Specs Builder */
 .specs-builder { display: flex; flex-direction: column; gap: 0.6rem; }
