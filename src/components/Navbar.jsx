@@ -57,6 +57,11 @@ export default function Navbar() {
           <button className="theme-toggle" onClick={toggle} title="Toggle theme">
             {theme === "dark" ? "☀️" : "🌙"}
           </button>
+
+          <Link to="/cart" className="cart-link" onClick={() => setMenuOpen(false)}>
+            &#128722;
+            {count > 0 && <span className="cart-badge">{count}</span>}
+          </Link>
         </div>
 
         <button className="theme-toggle mobile-theme" onClick={toggle} title="Toggle theme">
