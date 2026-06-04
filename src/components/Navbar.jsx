@@ -39,6 +39,16 @@ export default function Navbar() {
         </form>
 
         <div className={`nav-links ${menuOpen ? "open" : ""}`}>
+          <form className="mobile-search" onSubmit={handleSearch}>
+            <input
+              type="text"
+              placeholder="Search products..."
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
+            <button type="submit">&#128269;</button>
+          </form>
+
           <Link to="/products" onClick={() => setMenuOpen(false)}>Products</Link>
           <Link to="/products?category=laptops" onClick={() => setMenuOpen(false)}>Laptops</Link>
           <Link to="/products?category=desktops" onClick={() => setMenuOpen(false)}>Desktops</Link>
@@ -47,16 +57,16 @@ export default function Navbar() {
           <button className="theme-toggle" onClick={toggle} title="Toggle theme">
             {theme === "dark" ? "☀️" : "🌙"}
           </button>
-
-          <Link to="/cart" className="cart-link" onClick={() => setMenuOpen(false)}>
-            &#128722;
-            {count > 0 && <span className="cart-badge">{count}</span>}
-          </Link>
         </div>
 
         <button className="theme-toggle mobile-theme" onClick={toggle} title="Toggle theme">
           {theme === "dark" ? "☀️" : "🌙"}
         </button>
+
+        <Link to="/cart" className="cart-link mobile-cart" onClick={() => setMenuOpen(false)}>
+          &#128722;
+          {count > 0 && <span className="cart-badge">{count}</span>}
+        </Link>
 
         <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
           {menuOpen ? "✕" : "☰"}

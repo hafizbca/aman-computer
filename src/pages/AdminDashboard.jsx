@@ -241,7 +241,7 @@ export default function AdminDashboard() {
                 <tbody>
                   {filtered.map((p) => (
                     <tr key={p.id}>
-                      <td>
+                      <td data-label="Product">
                         <div className="table-product">
                           <img src={p.image} alt={p.name} />
                           <div>
@@ -250,18 +250,18 @@ export default function AdminDashboard() {
                           </div>
                         </div>
                       </td>
-                      <td><span className="cat-pill">{p.category}</span></td>
-                      <td>
+                      <td data-label="Category"><span className="cat-pill">{p.category}</span></td>
+                      <td data-label="Price">
                         <p className="tp-price">₹{p.price.toLocaleString("en-IN")}</p>
                         {p.originalPrice > p.price && (
                           <p className="tp-orig">₹{p.originalPrice.toLocaleString("en-IN")}</p>
                         )}
                       </td>
-                      <td>
+                      <td data-label="Stock">
                         <span className={p.stock <= 5 ? "stock-low" : "stock-ok"}>{p.stock}</span>
                       </td>
-                      <td><span className="rating-cell">★ {p.rating}</span> <span className="reviews-cell">({p.reviews})</span></td>
-                      <td>
+                      <td data-label="Rating"><span className="rating-cell">★ {p.rating}</span> <span className="reviews-cell">({p.reviews})</span></td>
+                      <td data-label="Actions">
                         <div className="action-btns">
                           <button className="btn-edit" onClick={() => openEdit(p)}>✏️ Edit</button>
                           <button className="btn-del" onClick={() => confirmDelete(p)}>🗑️ Delete</button>

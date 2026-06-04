@@ -161,12 +161,16 @@
 .not-found a { color: var(--accent-fg); }
 
 @media (max-width: 768px) {
-  .detail-grid { grid-template-columns: 1fr; }
+  .detail-container { padding: 1.5rem 1rem; }
+  .detail-grid { grid-template-columns: 1fr; gap: 1.5rem; }
   .related-grid { grid-template-columns: repeat(2, 1fr); }
-  .spec-row { grid-template-columns: 130px 1fr; }
+  .spec-row { grid-template-columns: 120px 1fr; }
+  .detail-info h1 { font-size: 1.4rem; }
 }
 
 @media (max-width: 480px) {
   .detail-btns { flex-direction: column; }
-  .related-grid { grid-template-columns: 1fr; }
+  .related-grid { grid-template-columns: repeat(2, 1fr); }
+  .spec-row { grid-template-columns: 1fr; gap: 0.2rem; }
+  .spec-key { font-size: 0.75rem; }
 }

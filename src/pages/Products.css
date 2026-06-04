@@ -92,4 +92,12 @@
   .products-grid-page { grid-template-columns: repeat(2, 1fr); }
 }
 
-@media (max-width: 480px) { .products-grid-page { grid-template-columns: 1fr; } }
+@media (max-width: 600px) {
+  .products-layout { padding: 1rem; }
+  .cat-list { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 0.25rem; }
+  .products-toolbar { flex-direction: column; align-items: flex-start; }
+}
+
+@media (max-width: 480px) {
+  .products-grid-page { grid-template-columns: repeat(2, 1fr); }
+}
